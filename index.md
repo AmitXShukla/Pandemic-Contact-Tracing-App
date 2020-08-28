@@ -1,37 +1,216 @@
-## Welcome to GitHub Pages
+# Contact Tracing, Visitor Management, Mobile Assets/Employee Attendance App
 
-You can use the [editor on GitHub](https://github.com/AmitXShukla/Pandemic-Contact-Tracing-App/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+```diff
+- If you like this project, please consider giving it a star (*) and follow me at GitHub & YouTube.
+```
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/youtube.svg" width=40 height=50>](https://youtube.com/AmitShukla_AI)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/github.svg" width=40 height=50>](https://github.com/AmitXShukla)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/medium.svg" width=40 height=50>](https://medium.com/@Amit_Shukla)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/twitter_1.svg" width=40 height=50>](https://twitter.com/ashuklax)
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+## Objective
+An Electronic Visitor register App for storing Host & Guest Records, Picture Attendance with GPS Locations using user's mobile phone
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## Privacy is key
+The idea of contact tracing prompts some concerns regarding medical privacy, and public health officials take those concerns seriously.
+They are ethically and, in most states, legally bound to protect the information and use it only for public health purposes.
 
-```markdown
-Syntax highlighted code block
+<h2><a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lHnfxOOzZ_hTnPF8Hh3eKDo">Video Tutorials!</a></h2>
+<h2>This repository is updated to Angular 10</h2>
+<h2>Tools: </h2>
+<b>front-end:</b> Angular 10<br/>
+<b>back-end:</b> Google Firestore / Firebase<br/>
+Pro Version: AI, Machine Learning Algorithm supported Advance features<br/>
+<h3><i>send an email to info@elishconsulting.com for Pro version enquiries.</i></h3>
+<h2>Features</h2>
+<ol>
+<li>Paperless Records for Visitors, Contact Tree and Host</li>
+<li>Save Visits with Pictures and GPS Locations</li>
+<li>Online and/or Offline App</li>
+<li>One App for multiple platforms (iOS, Android, Desktop, Cloud etc.)</li>
+<li>Instant access to ALL guest/host historical records at guest check-in.</li>
+<li>No Thumb expressions or card punching to verify identify.</li>
+<li>Auto Face Recognition (Pro version only).</li>
+<li>Live Contact instant Notifications (Pro version) </li>
+<li>Social Authentication</li>
+<li>Online and/or Offline (delayed capture) App</li>
+<li>One App for multiple platforms (iOS, Android, Desktop, Cloud etc.)</li>
+<li>Store and Access millions of records instantly</li>
+<li>Paperless and Mobile on-premise/private cloud App deployement</li>
+<li>Instant access to millions of current & historical records at anytime</li>
+<li>iOS/Android app (notification enabled) / Advance Custom features (Pro version only)</li>
+<li>Unlimited Storage (only limited to server/database hosting)</li>
+</ol>
 
-# Header 1
-## Header 2
-### Header 3
+<h2>Let's get started :-</h2>
 
-- Bulleted
-- List
+```ts
 
-1. Numbered
-2. List
+// Before we start, Please make sure you have latest version of node js installed.
+// head out to https://nodejs.org/en/ and grab latest nodejs.
+// Once you have nodejs installed, open command prompt/terminal window.
 
-**Bold** and _Italic_ and `Code` text
+$ node -v // make sure, this command comes back with a node version
+$ npm -v // make sure, this command comes back with a npm version
 
-[Link](url) and ![Image](src)
+// How to Install NodeJS on Windows, Mac, Linux & ChromeOS
+// First run
+$ sudo apt-get update
+// and then if needed
+$ sudo apt-get install curl gnupg -y
+// for nodejs version 14
+$ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+
+// Install Angular CLI
+$ npm install -g @angular/cli
+$ ng -v // make sure, this command comes back with a npm version
+$ mkdir app
+$ cd app
+$ mkdir client
+$ cd client
+$ ng new SMS
+$ cd SMS
+$ ng serve
+
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+<h2> Setup Google Firestore / Firebase Database & Role / Rules</h2>
 
-### Jekyll Themes
+```ts
+# Contact Tracing, Visitor Management, Mobile Assets/Employee Attendance App
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/AmitXShukla/Pandemic-Contact-Tracing-App/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```diff
+- If you like this project, please consider giving it a star (*) and follow me at GitHub & YouTube.
+```
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/youtube.svg" width=40 height=50>](https://youtube.com/AmitShukla_AI)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/github.svg" width=40 height=50>](https://github.com/AmitXShukla)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/medium.svg" width=40 height=50>](https://medium.com/@Amit_Shukla)
+[<img src="https://github.com/AmitXShukla/AmitXShukla.github.io/blob/master/assets/icons/twitter_1.svg" width=40 height=50>](https://twitter.com/ashuklax)
 
-### Support or Contact
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Objective
+An Electronic Visitor register App for storing Host & Guest Records, Picture Attendance with GPS Locations using user's mobile phone
+
+## Privacy is key
+The idea of contact tracing prompts some concerns regarding medical privacy, and public health officials take those concerns seriously.
+They are ethically and, in most states, legally bound to protect the information and use it only for public health purposes.
+
+<h2><a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lHnfxOOzZ_hTnPF8Hh3eKDo">Video Tutorials!</a></h2>
+<h2>This repository is updated to Angular 10</h2>
+<h2>Tools: </h2>
+<b>front-end:</b> Angular 10<br/>
+<b>back-end:</b> Google Firestore / Firebase<br/>
+Pro Version: AI, Machine Learning Algorithm supported Advance features<br/>
+<h3><i>send an email to info@elishconsulting.com for Pro version enquiries.</i></h3>
+<h2>Features</h2>
+<ol>
+<li>Paperless Records for Visitors, Contact Tree and Host</li>
+<li>Save Visits with Pictures and GPS Locations</li>
+<li>Online and/or Offline App</li>
+<li>One App for multiple platforms (iOS, Android, Desktop, Cloud etc.)</li>
+<li>Instant access to ALL guest/host historical records at guest check-in.</li>
+<li>No Thumb expressions or card punching to verify identify.</li>
+<li>Auto Face Recognition (Pro version only).</li>
+<li>Live Contact instant Notifications (Pro version) </li>
+<li>Social Authentication</li>
+<li>Online and/or Offline (delayed capture) App</li>
+<li>One App for multiple platforms (iOS, Android, Desktop, Cloud etc.)</li>
+<li>Store and Access millions of records instantly</li>
+<li>Paperless and Mobile on-premise/private cloud App deployement</li>
+<li>Instant access to millions of current & historical records at anytime</li>
+<li>iOS/Android app (notification enabled) / Advance Custom features (Pro version only)</li>
+<li>Unlimited Storage (only limited to server/database hosting)</li>
+</ol>
+
+<h2>Let's get started :-</h2>
+
+```ts
+
+// Before we start, Please make sure you have latest version of node js installed.
+// head out to https://nodejs.org/en/ and grab latest nodejs.
+// Once you have nodejs installed, open command prompt/terminal window.
+
+$ node -v // make sure, this command comes back with a node version
+$ npm -v // make sure, this command comes back with a npm version
+
+// How to Install NodeJS on Windows, Mac, Linux & ChromeOS
+// First run
+$ sudo apt-get update
+// and then if needed
+$ sudo apt-get install curl gnupg -y
+// for nodejs version 14
+$ curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+$ sudo apt-get install -y nodejs
+
+// Install Angular CLI
+$ npm install -g @angular/cli
+$ ng -v // make sure, this command comes back with a npm version
+$ mkdir app
+$ cd app
+$ mkdir client
+$ cd client
+$ ng new SMS
+$ cd SMS
+$ ng serve
+
+```
+
+<h2> Setup Google Firestore / Firebase Database & Role / Rules</h2>
+
+```ts
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  match /VMS_LICENSE/{document} {
+  // FIX READ later, it should only allow if user knows doc id
+  	allow read: if true;
+   allow read: if false;
+   }
+  match /VMS_USERS/{document} {
+   allow read, write: if isDocOwner() || isAdmin();
+   }
+   match /VMS_DATA/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_EMPLOYEE/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_REGISTER/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_CONFIG/{document} {
+   // allow read, write, update: if isSignedIn();
+   allow read, write, update: if true;
+   // change this to isAdmin() later
+   }
+      // helper functions
+    function isDocOwner() {
+    // assuming document has a field author which is uid
+    // Only the authenticated user who authored the document can read or write
+    	return request.auth.uid == resource.data.author;
+      // This above read query will fail
+    // The query fails even if the current user actually is the author of every story document.
+    //  The reason for this behavior is that when Cloud Firestore applies your security rules, 
+    //  it evaluates the query against its potential result set,
+    //   not against the actual properties of documents in your database. 
+    //   If a query could potentially include documents that violate your security rules, 
+    //   the query will fail.
+    //   on your client app, make sure to include following
+    //   .where("author", "==", this.afAuth.auth.currentUser.uid)
+    }
+    function isSignedIn() {
+    // check if user is signed in
+          return request.auth.uid != null;
+    }
+    function isAdmin() {
+    return get(/databases/$(database)/documents/VMS_USERS/$(request.auth.uid)).data.isAdmin == true;
+    }
+}
+}
+```
+```
