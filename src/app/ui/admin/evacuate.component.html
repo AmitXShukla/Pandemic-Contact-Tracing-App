@@ -1,0 +1,48 @@
+<app-adminheader pageTitle="Evacuate" imageUrl="book" helpType="reports"></app-adminheader>
+<mat-card class="example-card">
+  <mat-card-content>
+    <!-- <mat-card class="example-card-fixed"> -->
+      <mat-card>
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="example-icon">VMS Cloud</mat-card-title>
+        <mat-card-subtitle>elishconsulting.com</mat-card-subtitle>
+        <mat-card-subtitle>Guests present on premise</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+            <div class="example-header">
+              <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Recent Results">
+              </mat-form-field>
+            </div>
+            <div class="example-container mat-elevation-z8">
+              <mat-table [dataSource]="dataSource" matSort>
+                <ng-container matColumnDef="hname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Host</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.hname}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="vname">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Guest</mat-header-cell>
+                    <mat-cell *matCellDef="let row"> {{row.vname}} </mat-cell>
+                  </ng-container>
+                <ng-container matColumnDef="phone">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="createdAt">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>CheckIn</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.createdAt.seconds * 1000 | date:'MM-dd-yy HH:m:ss' }} </mat-cell>
+                </ng-container>
+                <!-- <ng-container matColumnDef="createdAt">
+                        <mat-header-cell *matHeaderCellDef mat-sort-header>CheckOut</mat-header-cell>
+                        <mat-cell *matCellDef="let row"> {{row.createdAt.seconds * 1000 | date:'MM-dd-yy HH:m:ss' }} </mat-cell>
+                      </ng-container> -->
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+              <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </div>
+        </mat-card-content>
+      </mat-card>
+    </mat-card-content>
+  </mat-card>

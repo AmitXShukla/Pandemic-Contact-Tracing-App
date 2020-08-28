@@ -1,0 +1,234 @@
+<app-adminheader pageTitle="App Branding" imageUrl="menu" helpType="config"></app-adminheader>
+<mat-card class="example-card">
+  <mat-card-content>
+    <mat-card class="example-card-fixed">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="example-icon">VMS Cloud</mat-card-title>
+        <mat-card-subtitle>elishconsulting.com</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form #configDataForm="ngForm" (ngSubmit)="setData(configDataForm.value);" novalidate>
+          <mat-error *ngIf="savedChanges">
+            Data is saved.
+            <label class="small-spacer"></label>
+          </mat-error>
+          <div>
+            <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+            <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
+            <mat-card-actions align="start">
+              <button type="submit" mat-raised-button [disabled]="!configDataForm.valid" color="primary">Save</button>
+            </mat-card-actions>
+            <mat-accordion>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    App Theme
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Setup Colors and Layout
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <span class="mat-error">Pro version</span>
+                <!-- <mat-form-field>
+                  <mat-label>Favorite Theme</mat-label>
+                  <mat-select [ngModel]="(data$ | async)?.ptheme" name="ptheme" id="ptheme" #ptheme="ngModel" ngModel>
+                    <mat-option *ngFor="let theme of themes" [value]="theme.value">
+                      {{theme.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field> -->
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Custom Features
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    add more functionalities
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <span class="mat-error">Pro version</span>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Contact Tracing
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    setup frequency
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                Setup contract tracing defaults, for example, how often user location is captured.<br/>
+                <span class="mat-error">Pro version</span>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Contact Tracing
+                  </mat-panel-title>
+                  <mat-panel-description>
+                  notifications
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                SMS, whatsapp, Messagener, email setup
+                <br/>
+                <span class="mat-error">Pro version</span>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Footer
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    text Information
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field>
+                  <input matInput placeholder="Company Name" name="footer_company" id="footer_company" #footer_company="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_company">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="Copyright" name="footer_copyright" id="footer_copyright" #footer_copyright="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_copyright">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="email ID" name="footer_emailid" id="footer_emailid" #footer_emailid="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_emailid">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="website" name="footer_website" id="footer_website" #footer_website="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_website">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="Facebook" name="footer_fblink" id="footer_fblink" #footer_fblink="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_fblink">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="GitHub" name="footer_github" id="footer_github" #footer_github="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_github">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="LinkedIn" name="footer_linkedin" id="footer_linkedin" #footer_linkedin="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_linkedin">
+                </mat-form-field>
+                <br>
+                <mat-form-field>
+                  <input matInput placeholder="Twitter" name="footer_twitter" id="footer_twitter" #footer_twitter="ngModel" ngModel
+                    minlength="10" [ngModel]="(data$ | async)?.footer_twitter">
+                </mat-form-field>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    CheckIn
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    Type
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                  <mat-label>Guest CheckIn</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_guest" #checkin_guest [ngModel]="(data$ | async)?.checkin_guest"></mat-slide-toggle>
+                  <br/>
+                  <mat-label>Employee CheckIn</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_employee" #checkin_employee [ngModel]="(data$ | async)?.checkin_employee"></mat-slide-toggle>
+                  <br/>
+                  <mat-label>Others CheckIn</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_others" #checkin_others [ngModel]="(data$ | async)?.checkin_others"></mat-slide-toggle>
+                  <br/>
+                  <mat-label>Mobile CheckIn</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_mobile" #checkin_mobile [ngModel]="(data$ | async)?.checkin_mobile"></mat-slide-toggle>
+                  <br/>
+                  <mat-label>Contact Tracing</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_tracing" #checkin_ctracing [ngModel]="(data$ | async)?.checkin_tracing"></mat-slide-toggle>
+              </mat-expansion-panel>
+              <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Guest
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                  <mat-label>Visitor emailID</mat-label>
+                  <span class="small-spacer"></span>
+                  <mat-slide-toggle name="checkin_visitor_emailid" [checked]="false" #checkin_visitor_emailid [ngModel]="(data$ | async)?.checkin_visitor_emailid"></mat-slide-toggle>
+                  <br/><br/>
+                  <mat-label>visitor Company name</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_company" [checked]="false" #checkin_visitor_company [ngModel]="(data$ | async)?.checkin_visitor_company"></mat-slide-toggle>
+                <br/><br/>
+                  <mat-label>visitor Address Type</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_addtype" [checked]="false" #checkin_visitor_addtype [ngModel]="(data$ | async)?.checkin_visitor_addtype"></mat-slide-toggle>
+                <br/><br/>
+                  <mat-label>visitor Add Line 1</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_add1" [checked]="false" #checkin_visitor_add1 [ngModel]="(data$ | async)?.checkin_visitor_add1"></mat-slide-toggle>
+                <br/><br/>
+                <mat-label>visitor Add Line 2</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_add2" [checked]="false" #checkin_visitor_add2 [ngModel]="(data$ | async)?.checkin_visitor_add2"></mat-slide-toggle>
+                <br/><br/>
+                  <mat-label>visitor Zip Code</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_zip" [checked]="false" #checkin_visitor_zip [ngModel]="(data$ | async)?.checkin_visitor_zip"></mat-slide-toggle>
+                  <br/><br/>
+                  <mat-label>visitor State</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_state" [checked]="false" #checkin_visitor_state [ngModel]="(data$ | async)?.checkin_visitor_state"></mat-slide-toggle>
+                <br/><br/>
+                  <mat-label>visitor Country</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_country" [checked]="false" #checkin_visitor_country [ngModel]="(data$ | async)?.checkin_visitor_country"></mat-slide-toggle>
+                <br/><br/>
+                  <mat-label>visitor Comments</mat-label>
+                  <mat-slide-toggle name="checkin_visitor_comments" [checked]="false" #checkin_visitor_comments [ngModel]="(data$ | async)?.checkin_visitor_comments"></mat-slide-toggle>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      CheckOut
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Type
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                    <mat-label>CheckOut by Phone</mat-label>
+                    <span class="small-spacer"></span>
+                    <mat-slide-toggle name="checkout_phone" #checkout_phone [ngModel]="(data$ | async)?.checkout_phone"></mat-slide-toggle>
+                    <br/>
+                    <mat-label>CheckOut by Bar Code</mat-label>
+                    <span class="small-spacer"></span>
+                    <mat-slide-toggle name="checkout_barcode" #checkout_barcode [ngModel]="(data$ | async)?.checkout_barcode"></mat-slide-toggle>
+                </mat-expansion-panel>
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    T & C
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    upload T & C Information
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <mat-form-field class="example-full-width">
+                  <textarea matInput placeholder="Terms & Conditions" name="terms" #terms="ngModel" #terms [ngModel]="(data$ | async)?.terms" minlength="10">
+                  </textarea>
+                </mat-form-field>
+                <br><br>
+                <mat-form-field>
+                  <input matInput placeholder="YouTube Video T&C Link" name="vlink" id="vlink" #vlink="ngModel" [ngModel]="(data$ | async)?.vlink"
+                  minlength="10">
+                </mat-form-field>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

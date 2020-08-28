@@ -1,0 +1,95 @@
+<mat-toolbar color="none">
+    <mat-toolbar-row>
+      <button mat-fab aria-label="Menu" color="primary" [matMenuTriggerFor]="rootMenu">
+        <!-- <mat-icon class="example-icon-link circle-link">rounded_corner</mat-icon> -->
+        <mat-icon class="example-icon-link circle-link">menu</mat-icon>
+        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+      </button>
+      <mat-icon class="example-icon">{{ imageUrl }}</mat-icon>
+      <span class="example-icon">{{ pageTitle }}</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon-link circle-link" [matMenuTriggerFor]="helpMenu">help</mat-icon>
+      <mat-icon class="example-icon-link circle-link" [matMenuTriggerFor]="langMenu">language</mat-icon>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  
+  <mat-menu #rootMenu="matMenu">
+    <div class="example-ripple-container mat-elevation-z4">
+      <button mat-menu-item routerLink="/login">
+        <mat-icon class="circle-link example-icon-link">dashboard</mat-icon>Home
+      </button>
+    </div>
+  
+    <!-- <button mat-menu-item routerLink="/aboutus">
+      <mat-icon class="circle-link example-icon-link">bookmark</mat-icon>About us
+    </button> -->
+    <!-- <button mat-menu-item routerLink="/features">
+      <mat-icon class="circle-link example-icon-link">web</mat-icon>Features
+    </button> -->
+    <button mat-menu-item [matMenuTriggerFor]="adminMenu">
+      <mat-icon class="circle-link example-icon-link">settings</mat-icon>Settings
+    </button>
+  </mat-menu>
+  <mat-menu #adminMenu="matMenu">
+    <button mat-menu-item routerLink="/config">
+      <mat-icon class="circle-link example-icon-link">menu</mat-icon>Configure App Branding
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="employeeMenu">
+      <mat-icon class="circle-link example-icon-link">person</mat-icon>manage Employee
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="reportMenu">
+      <mat-icon class="circle-link example-icon-link">book</mat-icon>Reports
+    </button>
+    <button mat-menu-item [matMenuTriggerFor]="tracingMenu">
+      <mat-icon class="circle-link example-icon-link" color="warn">fingerprint</mat-icon>Contact Tracing
+    </button>
+    <button mat-menu-item routerLink="/login">
+      <mat-icon class="circle-link example-icon-link">lock</mat-icon>My account
+    </button>
+  </mat-menu>
+  <mat-menu #tracingMenu="matMenu">
+    <button mat-menu-item routerLink="/reports">
+      <mat-icon class="circle-link example-icon-link" color="warn">fingerprint</mat-icon>Visitors by quarantine
+    </button>
+    <button mat-menu-item routerLink="/evacuate">
+      <mat-icon class="circle-link example-icon-link" color="warn">fingerprint</mat-icon>Person GPS Locations
+    </button>
+    <button mat-menu-item routerLink="/evacuate">
+      <mat-icon class="circle-link example-icon-link" color="warn">fingerprint</mat-icon>Person's visitors
+    </button>
+    <button mat-menu-item routerLink="/evacuate">
+      <mat-icon class="circle-link example-icon-link" color="warn">fingerprint</mat-icon>People in same GPS locations
+    </button>
+  </mat-menu>
+  <mat-menu #reportMenu="matMenu">
+      <button mat-menu-item routerLink="/reports">
+        <mat-icon class="circle-link example-icon-link">book</mat-icon>Visitors by date
+      </button>
+      <button mat-menu-item routerLink="/evacuate">
+        <mat-icon class="circle-link example-icon-link" color="warn">book</mat-icon>evacuate premise
+      </button>
+    </mat-menu>
+    <mat-menu #employeeMenu="matMenu">
+        <button mat-menu-item routerLink="/host" disabled>
+          <mat-icon class="circle-link example-icon-link">person</mat-icon>Sync Employee LDAP
+        </button>
+        <button mat-menu-item routerLink="/host">
+          <mat-icon class="circle-link example-icon-link">person</mat-icon>manage Employee
+        </button>
+      </mat-menu>
+  <mat-menu #langMenu="matMenu">
+    <button mat-menu-item mat-elevation-z4>
+      English
+    </button>
+  </mat-menu>
+  <mat-menu #helpMenu="matMenu">
+      <div class="example-icon">
+        {{ helpType == "login" ? configData.login : ""}}
+        {{ helpType == "register" ? configData.register : ""}}
+        {{ helpType == "checkin" ? configData.checkin : ""}}
+        {{ helpType == "checkout" ? configData.checkout : ""}}
+        {{ helpType == "aboutus" ? configData.aboutus : ""}}
+        {{ helpType == "employee" ? configData.employee : ""}}
+        {{ helpType == "config" ? configData.config : ""}}
+      </div>
+  </mat-menu>

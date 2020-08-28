@@ -1,0 +1,409 @@
+<app-adminheader pageTitle="Employee" imageUrl="person" helpType="employee"></app-adminheader>
+<mat-card class="example-card">
+  <mat-card-content>
+    <mat-card class="example-card-fixed">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="example-icon">VMS Cloud</mat-card-title>
+        <mat-card-subtitle>elishconsulting.com</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content
+        *ngIf="(toggleField=='searchMode') else (toggleField=='addMode')? showAddMode : ((toggleField=='editMode')? showEditMode : showResMode)">
+        <!-- searchmode -->
+        <form #searchFormData="ngForm" class="example-form">
+          <mat-card-actions align="start">
+            <button type="button" (click)="toggle('resMode');getData(searchFormData.value);" mat-raised-button
+              [disabled]="(emplid.value == '' && emplname.value == '')" color="primary">Search</button>
+            <span class="med-spacer"></span>
+            <span matTooltip="Add New">
+              <mat-icon color="primary" (click)="toggle('addMode')" svgIcon="add"></mat-icon>
+            </span>
+            <span class="small-spacer"></span>
+            <span matTooltip="Show Recent Results">
+              <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+            </span>
+          </mat-card-actions>
+          <mat-form-field class="example-form">
+            <input matInput type="text" placeholder="Employee ID" id="emplid" name="emplid" #emplid="ngModel" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="example-form">
+            <input matInput type="text" placeholder="Employee Name" id="emplname" name="emplname" #emplname="ngModel"
+              ngModel>
+          </mat-form-field>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+
+<!-- addMode -->
+<ng-template #showAddMode>
+  <form #addDataForm="ngForm" (ngSubmit)="setData(addDataForm.value);" novalidate>
+    <mat-error *ngIf="savedChanges">
+      Data is saved.
+      <label class="small-spacer"></label>
+      <mat-icon (click)="this.addDataForm.reset();savedChanges=false;toggle('searchMode');" svgIcon="clear"></mat-icon>
+    </mat-error>
+    <div *ngIf="!savedChanges">
+      <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+      <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Add</button>
+        <button type="reset" (click)="this.addDataForm.reset();" mat-raised-button [disabled]="!addDataForm.valid"
+          color="primary">Clear</button>
+        <span class="med-spacer"></span>
+        <span matTooltip="Search">
+          <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+        </span>
+        <span class="small-spacer"></span>
+        <span matTooltip="Show Recent Results">
+          <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+        </span>
+      </mat-card-actions>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal *
+            </mat-panel-title>
+            <mat-panel-description>
+              Personal Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Employee ID" name="emplid" id="emplid" ngModel required minlength="3">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee name" name="emplname" id="emplname" ngModel required minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Contact *
+            </mat-panel-title>
+            <mat-panel-description>
+              Phone and eMail Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Employee Phone #" name="phone" id="phone" #phone="ngModel" ngModel
+              minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee emailId" name="email" id="email" #email="ngModel" ngModel required
+              email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.</mat-error>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Address
+            </mat-panel-title>
+            <mat-panel-description>
+              Address Details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Address Type" name="ADD_TYPE_1" id="ADD_TYPE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_1" id="ADD_LINE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_2" id="ADD_LINE_2" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE" id="PIN_CODE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE" id="STATE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY" id="COUNTRY" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Address Type (2)" name="ADD_TYPE_2" id="ADD_TYPE_2" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_12" id="ADD_LINE_12" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_22" id="ADD_LINE_22" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE2" id="PIN_CODE2" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE2" id="STATE2" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY2" id="COUNTRY2" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Mobile 1" name="MOBILE1" id="MOBILE1" ngModel phone minlength="10">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Mobile 2" name="MOBILE2" id="MOBILE2" ngModel phone minlength="10">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Email 1" name="EMAIL1" id="EMAIL1" ngModel phone minlength="10">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email 2" name="EMAIL2" id="EMAIL2" ngModel phone minlength="10">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </form>
+</ng-template>
+<!-- edit mode -->
+<ng-template #showEditMode>
+  <form #editDataForm="ngForm" (ngSubmit)="updateData(editDataForm.value);" novalidate>
+    <input type="hidden" name="_id" id="_id" [ngModel]="(data$ | async)?._id" required>
+    <mat-error *ngIf="savedChanges">
+      Data is saved.
+      <label class="small-spacer"></label>
+      <mat-icon (click)="this.editDataForm.reset();savedChanges=false;toggle('searchMode');" svgIcon="clear"></mat-icon>
+    </mat-error>
+    <div *ngIf="!savedChanges">
+      <mat-progress-bar mode="indeterminate" *ngIf="dataLoading"></mat-progress-bar>
+      <mat-error *ngIf="error">Error: {{ errorMessage }}</mat-error>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!this.editDataForm.valid || this.editDataForm.pristine"
+          color="primary">Update</button>
+        <span class="med-spacer"></span>
+        <span matTooltip="Search">
+          <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+        </span>
+        <span class="small-spacer"></span>
+        <span matTooltip="Shwo Recent Results">
+          <mat-icon color="primary" (click)="toggle('resMode');getData();" svgIcon="cached"></mat-icon>
+        </span>
+      </mat-card-actions>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal *
+            </mat-panel-title>
+            <mat-panel-description>
+              Personal Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Employee ID" name="emplid" id="emplid" [ngModel]="(data$ | async)?.emplid"
+              required minlength="3">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee name" name="emplname" id="emplname"
+              [ngModel]="(data$ | async)?.emplname" required minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Contact *
+            </mat-panel-title>
+            <mat-panel-description>
+              Phone and eMail Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Employee Phone #" name="phone" id="phone" #phone="ngModel"
+              [ngModel]="(data$ | async)?.phone" minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee emailId" name="email" id="email" #email="ngModel"
+              [ngModel]="(data$ | async)?.email" required email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.</mat-error>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Address
+            </mat-panel-title>
+            <mat-panel-description>
+              Address Details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Address Type" name="ADD_TYPE_1" id="ADD_TYPE_1"
+              [ngModel]="(data$ | async)?.ADD_TYPE_1" minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_1" id="ADD_LINE_1"
+              [ngModel]="(data$ | async)?.ADD_LINE_1" minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_2" id="ADD_LINE_2"
+              [ngModel]="(data$ | async)?.ADD_LINE_2">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE" id="PIN_CODE" [ngModel]="(data$ | async)?.PIN_CODE">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE" id="STATE" [ngModel]="(data$ | async)?.STATE">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY" id="COUNTRY" [ngModel]="(data$ | async)?.COUNTRY">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Address Type (2)" name="ADD_TYPE_2" id="ADD_TYPE_2"
+              [ngModel]="(data$ | async)?.ADD_TYPE_2" minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_12" id="ADD_LINE_12"
+              [ngModel]="(data$ | async)?.ADD_LINE_12" minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_22" id="ADD_LINE_22"
+              [ngModel]="(data$ | async)?.ADD_LINE_22">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE2" id="PIN_CODE2"
+              [ngModel]="(data$ | async)?.PIN_CODE2">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE2" id="STATE2" [ngModel]="(data$ | async)?.STATE2">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY2" id="COUNTRY2" [ngModel]="(data$ | async)?.COUNTRY2">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Mobile 1" name="MOBILE1" id="MOBILE1" [ngModel]="(data$ | async)?.MOBILE1"
+              minlength="10">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Mobile 2" name="MOBILE2" id="MOBILE2" [ngModel]="(data$ | async)?.MOBILE2"
+              minlength="10">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Email 1" name="EMAIL1" id="EMAIL1" [ngModel]="(data$ | async)?.EMAIL1"
+              minlength="10">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email 2" name="EMAIL2" id="EMAIL2" [ngModel]="(data$ | async)?.EMAIL2"
+              minlength="10">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Documents
+            </mat-panel-title>
+            <mat-panel-description>
+              Upload Pics
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div *ngFor="let file of (data$ | async)?.files">
+            <br />
+            <button type="button" mat-raised-button (click)="showDocument=!showDocument; getDocUrl(file);"
+              color="primary">Show Document</button>
+          </div>
+          <div *ngIf="showDocument">
+            <span matTooltip="Close">
+              <mat-icon color="primary" (click)="showDocument = !showDocument;">clear
+              </mat-icon>
+            </span>
+            <br />
+            <a href="{{ docUrl | async }}" target="_blank">Click here to open {{ fileName }} document</a>
+          </div>
+          <br>
+          <div *ngIf="showFileUpload">
+            <span matTooltip="Close">
+              <mat-icon color="primary" (click)="showFileUpload = !showFileUpload;">clear
+              </mat-icon>
+            </span>
+            <br />
+            <app-fileupload fileUrl="EMPLOYEE" docId="{{docId}}"></app-fileupload>
+          </div>
+          <br>
+          <button type="button" mat-raised-button (click)="showFileUpload=!showFileUpload" color="primary">Upload
+            File</button>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </form>
+</ng-template>
+<!-- Results mode -->
+<ng-template #showResMode>
+  <mat-card-actions align="start">
+    <span class="med-spacer"></span>
+    <span class="med-spacer"></span>
+    <span class="med-spacer"></span>
+    <span matTooltip="Add New">
+      <mat-icon color="primary" (click)="toggle('addMode')" svgIcon="add"></mat-icon>
+    </span>
+    <span class="small-spacer"></span>
+    <span matTooltip="Search All">
+      <mat-icon color="primary" (click)="toggle('searchMode')" svgIcon="search"></mat-icon>
+    </span>
+  </mat-card-actions>
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search Recent Results">
+    </mat-form-field>
+  </div>
+  <div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container matColumnDef="emplid">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.emplid}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="emplname">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.emplname}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="phone">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Phone</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>email</mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{row.email}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="_id">
+        <mat-header-cell *matHeaderCellDef> action </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <span matTooltip="Edit">
+            <button mat-icon-button (click)="getDoc(row._id)">
+              <mat-icon color="primary" svgIcon="edit"></mat-icon>
+            </button>
+          </span>
+          <span matTooltip="Delete">
+            <button mat-icon-button (click)="deleteDoc(row._id)">
+              <mat-icon color="primary" svgIcon="delete"></mat-icon>
+            </button>
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</ng-template>

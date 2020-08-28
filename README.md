@@ -1,4 +1,4 @@
-# Contact Tracing, Visitor Management, Mobile Assets/Employee Attendance App
+# Pandemic Contact Tracing, Visitor Management, Mobile Assets/Employee Attendance App
 
 ```diff
 - If you like this project, please consider giving it a star (*) and follow me at GitHub & YouTube.
@@ -17,7 +17,7 @@ The idea of contact tracing prompts some concerns regarding medical privacy, and
 They are ethically and, in most states, legally bound to protect the information and use it only for public health purposes.
 
 <h2><a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lHnfxOOzZ_hTnPF8Hh3eKDo">Video Tutorials!</a></h2>
-<h2>This repository is updated to Angular 9.1.4</h2>
+<h2>This repository is updated to Angular 10</h2>
 <h2>Tools: </h2>
 <b>front-end:</b> Angular 10<br/>
 <b>back-end:</b> Google Firestore / Firebase<br/>
@@ -25,6 +25,7 @@ Pro Version: AI, Machine Learning Algorithm supported Advance features<br/>
 <h3><i>send an email to info@elishconsulting.com for Pro version enquiries.</i></h3>
 <h2>Features</h2>
 <ol>
+<li>Admin Panel Access</li>
 <li>Paperless Records for Visitors, Contact Tree and Host</li>
 <li>Save Visits with Pictures and GPS Locations</li>
 <li>Online and/or Offline App</li>
@@ -68,10 +69,8 @@ $ npm install -g @angular/cli
 $ ng -v // make sure, this command comes back with a npm version
 $ mkdir app
 $ cd app
-$ mkdir client
-$ cd client
-$ ng new SMS
-$ cd SMS
+$ ng new CTAPP
+$ cd CTAPP
 $ ng serve
 
 ```
@@ -79,85 +78,36 @@ $ ng serve
 <h2> Setup Google Firestore / Firebase Database & Role / Rules</h2>
 
 ```ts
+rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-// SMS App Rules START
-  match /SMS_ROLES/{document} {
-   allow read, write: if false;
-   }
-   match /SMS_USERS/{document} {
-	 allow create: if exists(/databases/$(database)/documents/SMS_ROLES/$(request.resource.data.secretKey))
-   && get(/databases/$(database)/documents/SMS_ROLES/$(request.resource.data.secretKey)).data.role == request.resource.data.role;
-   allow update: if exists(/databases/$(database)/documents/SMS_ROLES/$(request.resource.data.secretKey))
-   && get(/databases/$(database)/documents/SMS_ROLES/$(request.resource.data.secretKey)).data.role == request.resource.data.role
-   && isDocOwner();
-   allow read: if isSignedIn() && isDocOwner();
-   }
-   match /SMS_CONFIG_ENROLL_CD/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_CONFIG_FEE_CD/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_CONFIG_MARKS_CD/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_STUDENTS/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_STUDENTS/{document}/notifications/{doc} {
-   allow read: if isSignedIn();
-   }
-   match /SMS_FEE/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_MARKS/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_EMPLOYEE/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff();
-   }
-   match /SMS_SALARY/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff();
-   }
-   match /SMS_SALARY_CD/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff();
-   }
-   match /SMS_VOUCHER/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff();
-   }
-   match /SMS_EXPENSES/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff();
-   }
-   match /SMS_ASSIGNMENT/{document} {
-   allow read, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   allow write: if true;
-   }
-   match /SMS_CLASSES/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_HOMEWORK/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   match /SMS_TUTORIALS/{document} {
-   allow read, write, delete: if isSMSAdmin() || isSMSStaff() || isSMSTeacher();
-   }
-   function isSMSAdmin() {
-    return get(/databases/$(database)/documents/SMS_USERS/$(request.auth.uid)).data.role == 'admin';
+    match /{document=**} {
+      allow read, write: if false;
     }
-    function isSMSStaff() {
-    return get(/databases/$(database)/documents/SMS_USERS/$(request.auth.uid)).data.role == 'staff';
-    }
-    function isSMSParent() {
-    return get(/databases/$(database)/documents/SMS_USERS/$(request.auth.uid)).data.role == 'parent';
-    }
-    function isSMSTeacher() {
-    return get(/databases/$(database)/documents/SMS_USERS/$(request.auth.uid)).data.role == 'teacher';
-    }
-    function isSMSStudent() {
-    return get(/databases/$(database)/documents/SMS_USERS/$(request.auth.uid)).data.role == 'student';
-    }
-    function isDocOwner(){
+  match /VMS_LICENSE/{document} {
+  // FIX READ later, it should only allow if user knows doc id
+  	allow read: if true;
+   allow read: if false;
+   }
+  match /VMS_USERS/{document} {
+   allow read, write: if isDocOwner() || isAdmin();
+   }
+   match /VMS_DATA/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_EMPLOYEE/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_REGISTER/{document} {
+   allow read, write: if isSignedIn();
+   }
+   match /VMS_CONFIG/{document} {
+   // allow read, write, update: if isSignedIn();
+   allow read, write, update: if true;
+   // change this to isAdmin() later
+   }
+      // helper functions
+    function isDocOwner() {
     // assuming document has a field author which is uid
     // Only the authenticated user who authored the document can read or write
     	return request.auth.uid == resource.data.author;
@@ -175,7 +125,22 @@ service cloud.firestore {
     // check if user is signed in
           return request.auth.uid != null;
     }
-  // SMS App Rules END
+    function isAdmin() {
+    return get(/databases/$(database)/documents/VMS_USERS/$(request.auth.uid)).data.isAdmin == true;
+    }
 }
+}
+```
+
+Firebase/Forestore Storage Rules
+```ts
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      // fix these rules later to allow only authorized admin to read images
+      allow read, write: if request.auth != null;
+    }
+  }
 }
 ```

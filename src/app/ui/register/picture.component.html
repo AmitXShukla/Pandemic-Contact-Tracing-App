@@ -1,0 +1,43 @@
+<app-header pageTitle="Picture" imageUrl="add_a_photo" helpType="checkin"></app-header>
+<mat-card class="example-card">
+  <mat-card-content>
+    <mat-card class="example-card-fixed">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="example-icon">VMS Cloud</mat-card-title>
+        <mat-card-subtitle>elishconsulting.com</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card-subtitle>
+          <mat-icon color="primary">flight_land</mat-icon>
+          <span class="small-spacer"></span>
+          <span class="med-spacer"></span>
+          <button mat-raised-button color="primary" routerLink='/register'>
+            <mat-icon>close</mat-icon>
+          </button>
+          <br><br>
+        </mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <div *ngIf="registerID !== ''">
+          <div *ngIf="showFileUpload && registerID !== '' else showButton">
+            <!-- <span matTooltip="Close">
+              <button mat-raised-button color="primary" (click)="showFileUpload = !showFileUpload;">
+                Click here AFTER your pic is 100% uploaded
+              </button>
+            </span> -->
+            <br />
+            <app-fileupload fileUrl="REGISTER" docId="{{registerID}}"></app-fileupload>
+            <br />
+            <mat-error *ngIf="registerID !== ''">Please take your picture, wait for your picture
+                    to upload 100% and then click on NEXT to Print Badge.</mat-error>
+                    <br /><br />
+            <button mat-raised-button color="primary" [routerLink]="['/badge', registerID]">NEXT</button>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+<ng-template #showButton>
+        System failure, please go back to checkin page.
+</ng-template>

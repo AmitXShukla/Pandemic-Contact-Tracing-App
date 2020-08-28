@@ -1,0 +1,529 @@
+<app-header pageTitle="Register" imageUrl="directions_walk" helpType="checkin"></app-header>
+<mat-card class="example-card">
+  <mat-card-content>
+    <mat-card class="example-card-fixed">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title class="example-icon">VMS Cloud</mat-card-title>
+        <mat-card-subtitle>elishconsulting.com</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-card-subtitle>
+          <mat-icon color="primary">flight_land</mat-icon>
+          <span class="small-spacer"></span>
+          <span class="med-spacer"></span>
+          <button mat-raised-button color="primary" [routerLink]="['/register']">
+            <mat-icon>close</mat-icon>
+          </button>
+          <br><br>
+        </mat-card-subtitle>
+        <mat-divider></mat-divider>
+        <div *ngIf="toggleField == 'Guest'; else toggleField == 'Employee' ? employee : toggleField == 'Tracing' ? tracing : others">
+          <div *ngIf="registerID !== ''; else guest">
+          </div>
+        </div>
+        <!-- <div *ngIf="registerID !== ''; else notCheckedin">
+          <mat-error *ngIf="registerID !== ''">You are checked IN now, please take your picture, wait for your picture
+            to fully upload and click on close to Print Badge.</mat-error>
+          <br>
+          <div *ngIf="showFileUpload && registerID !== ''">
+            <span matTooltip="Close">
+              <button mat-raised-button color="primary" (click)="showFileUpload = !showFileUpload;">
+                Click here AFTER your pic is 100% uploaded
+              </button>
+            </span>
+            <br />
+            <app-fileupload fileUrl="REGISTER" docId="{{registerID}}"></app-fileupload>
+          </div>
+          <div *ngIf="!showFileUpload && registerID !== ''">
+            <button mat-raised-button color="warn" [routerLink]="['/badge', registerID]">Print Badge Now</button>
+          </div>
+        </div> -->
+      </mat-card-content>
+    </mat-card>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #employee>
+  <form #addDataForm="ngForm" (ngSubmit)="onSubmit(addDataForm.value);this.addDataForm.reset();" novalidate>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              CheckIn *
+            </mat-panel-title>
+            <mat-panel-description>
+              DateTime
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <br>
+          <mat-form-field>
+            <input matInput disabled placeholder="CheckIn Time *" name="currenttime" id="currenttime"
+              [(ngModel)]="this.currentDTTM" required>
+          </mat-form-field>
+          <input type="hidden" name="checkOutAt" id="checkOutAt" #checkOutAt="ngModel" ngModel>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Employee *
+            </mat-panel-title>
+            <mat-panel-description>
+              Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Employee ID*" name="emplid" id="emplid" #emplid="ngModel" ngModel minlength="2"
+              required>
+            <mat-error *ngIf="emplid.invalid && (emplid.dirty || emplid.touched)">Please enter your name.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee Phone # *" name="phone" id="phone" #phone="ngModel" ngModel
+              minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Employee emailId" name="email" id="email" #email="ngModel" ngModel email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Other Information
+            </mat-panel-title>
+            <mat-panel-description>
+              (optional)
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Comments" name="COMMENTS" id="COMMENTS" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Next</button>
+      </mat-card-actions>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #others>
+  <form #addDataForm="ngForm" (ngSubmit)="onSubmit(addDataForm.value);this.addDataForm.reset();" novalidate>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              CheckIn *
+            </mat-panel-title>
+            <mat-panel-description>
+
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <br>
+          <mat-form-field>
+            <input matInput disabled placeholder="CheckIn Time *" name="currenttime" id="currenttime"
+              [(ngModel)]="this.currentDTTM" required>
+          </mat-form-field>
+          <input type="hidden" name="checkOutAt" id="checkOutAt" #checkOutAt="ngModel" ngModel>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Visitor *
+            </mat-panel-title>
+            <mat-panel-description>
+              Phone and eMail Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Name*" name="vname" id="vname" #vname="ngModel" ngModel minlength="2"
+              required>
+            <mat-error *ngIf="vname.invalid && (vname.dirty || vname.touched)">Please enter your name.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Phone # *" name="phone" id="phone" #phone="ngModel" ngModel
+              minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor emailId" name="email" id="email" #email="ngModel" ngModel email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Comments
+            </mat-panel-title>
+            <mat-panel-description>
+              (optional)
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Purpose of visit" name="PURPOSE" id="PURPOSE" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Comments" name="COMMENTS" id="COMMENTS" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Courier
+            </mat-panel-title>
+            <mat-panel-description>
+              (optional)
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Receiver Name" name="RNAME" id="RNAME" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Receiver Phone" name="RPHONE" id="RPHONE" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Tracking #" name="TRACKINGID" id="TRACKINGID" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Delivery
+            </mat-panel-title>
+            <mat-panel-description>
+              (optional)
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Goods Type" name="GTYPE" id="GTYPE" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Goods Qty" name="QTY" id="QTY" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Receiver Name" name="RNAME" id="RNAME" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Receiver Phone" name="RPHONE" id="RPHONE" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Tracking #" name="TRACKINGID" id="TRACKINGID" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Next</button>
+      </mat-card-actions>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #guest>
+  <form #addDataForm="ngForm" (ngSubmit)="onSubmit(addDataForm.value);this.addDataForm.reset();" novalidate>
+    <div>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Host *
+            </mat-panel-title>
+            <mat-panel-description>
+              Host Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Host Name" aria-label="Host" [matAutocomplete]="auto" required name="hname"
+              id="hname" ngModel>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let state of data$ | async; let i = index;" [value]="state.emplname">
+                <!-- <img class="example-option-img" aria-hidden [src]="getDocUrl(state?.files[0])" height="25"> -->
+                <!-- <img class="example-option-img" aria-hidden [src]="(docUrl | async)"> -->
+                <!-- <div *ngFor="let file of state?.files">
+                        {{ getDocUrl(file) }}
+                        {{ docUrl | async }}
+                      </div> -->
+                <!-- <img class="example-option-img" aria-hidden src="assets/images/person.gif" height="25"> -->
+                <!-- <img aria-hidden src="{{ docUrl | async }}" height="25"> -->
+                <span *ngIf="docUrl[i] != '' else showDummyPic">
+                  <button mat-mini-fab disabled><img class="circle-avatar" aria-hidden src="{{ docUrl[i] }}"
+                      height="25"></button>
+                </span>
+                <span>{{state.emplname}}</span> |
+                <small>ID: {{state.emplid}}</small> |
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput disabled placeholder="CheckIn Time *" name="currenttime" id="currenttime"
+              [(ngModel)]="this.currentDTTM" required>
+          </mat-form-field>
+          <input type="hidden" name="checkOutAt" id="checkOutAt" #checkOutAt="ngModel" ngModel>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Visitor *
+            </mat-panel-title>
+            <mat-panel-description>
+              Phone and eMail Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Name*" name="vname" id="vname" #vname="ngModel" ngModel minlength="2"
+              required>
+            <mat-error *ngIf="vname.invalid && (vname.dirty || vname.touched)">Please enter your name.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Phone # *" name="phone" id="phone" #phone="ngModel" ngModel
+              minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor emailId" name="email" id="email" #email="ngModel" ngModel email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Company" name="company" id="company" #company="ngModel" ngModel>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Other Information
+            </mat-panel-title>
+            <mat-panel-description>
+              (optional)
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Car License Plate #" name="CAR" id="CAR" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Type" name="ADD_TYPE_1" id="ADD_TYPE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_1" id="ADD_LINE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_2" id="ADD_LINE_2" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE" id="PIN_CODE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE" id="STATE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY" id="COUNTRY" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Comments" name="COMMENTS" id="COMMENTS" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+      </mat-accordion>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Next</button>
+      </mat-card-actions>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #tracing>
+  <form #addDataForm="ngForm" (ngSubmit)="onSubmit(addDataForm.value);this.addDataForm.reset();" novalidate>
+    <div>
+      <span class="middle-headline">Contact Tracing</span>
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Quarantine Center
+            </mat-panel-title>
+            <mat-panel-description>
+              *
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Host Name" aria-label="Host" [matAutocomplete]="auto" required name="hname"
+              id="hname" ngModel>
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let state of data$ | async; let i = index;" [value]="state.emplname">
+                <!-- <img class="example-option-img" aria-hidden [src]="getDocUrl(state?.files[0])" height="25"> -->
+                <!-- <img class="example-option-img" aria-hidden [src]="(docUrl | async)"> -->
+                <!-- <div *ngFor="let file of state?.files">
+                        {{ getDocUrl(file) }}
+                        {{ docUrl | async }}
+                      </div> -->
+                <!-- <img class="example-option-img" aria-hidden src="assets/images/person.gif" height="25"> -->
+                <!-- <img aria-hidden src="{{ docUrl | async }}" height="25"> -->
+                <span *ngIf="docUrl[i] != '' else showDummyPic">
+                  <button mat-mini-fab disabled><img class="circle-avatar" aria-hidden src="{{ docUrl[i] }}"
+                      height="25"></button>
+                </span>
+                <span>{{state.emplname}}</span> |
+                <small>ID: {{state.emplid}}</small> |
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput disabled placeholder="CheckIn Time *" name="currenttime" id="currenttime"
+              [(ngModel)]="this.currentDTTM" required>
+          </mat-form-field>
+          <input type="hidden" name="checkOutAt" id="checkOutAt" #checkOutAt="ngModel" ngModel>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Visitor *
+            </mat-panel-title>
+            <mat-panel-description>
+              Phone and eMail Information
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Name*" name="vname" id="vname" #vname="ngModel" ngModel minlength="2"
+              required>
+            <mat-error *ngIf="vname.invalid && (vname.dirty || vname.touched)">Please enter your name.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Phone # *" name="phone" id="phone" #phone="ngModel" ngModel
+              minlength="10" required pattern="^\d*\.?\d+$">
+            <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">10 digit phone in numerics only.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor emailId" name="email" id="email" #email="ngModel" ngModel email>
+            <mat-error *ngIf="email.invalid && (email.dirty || email.touched)">Please enter a valid email.
+            </mat-error>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Visitor Company" name="company" id="company" #company="ngModel" ngModel>
+          </mat-form-field>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Address
+            </mat-panel-title>
+            <mat-panel-description>
+              details
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput placeholder="Car License Plate #" name="CAR" id="CAR" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Type" name="ADD_TYPE_1" id="ADD_TYPE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 1" name="ADD_LINE_1" id="ADD_LINE_1" ngModel minlength="4">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Address Line 2" name="ADD_LINE_2" id="ADD_LINE_2" ngModel>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput placeholder="Pin Code" name="PIN_CODE" id="PIN_CODE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="State" name="STATE" id="STATE" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Country" name="COUNTRY" id="COUNTRY" ngModel>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Comments" name="COMMENTS" id="COMMENTS" ngModel minlength="4">
+          </mat-form-field>
+        </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Locations
+          </mat-panel-title>
+          <mat-panel-description>
+            you visited in past 14 days
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <input matInput placeholder="Address 1" name="LADDRESS_1" id="LADDRESS_1" ngModel minlength="4">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Comments" name="LCOMMENTS_1" id="LCOMMENTS_1" ngModel minlength="4">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-form-field>
+          <input matInput placeholder="Address 2" name="LADDRESS_2" id="LADDRESS_2" ngModel minlength="4">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Comments" name="LCOMMENTS_2" id="LCOMMENTS_2" ngModel minlength="4">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
+        <span class="mat-error">Pro version (* dynamic rows to add more Locations)</span>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            People
+          </mat-panel-title>
+          <mat-panel-description>
+            you met in past 14 days
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <mat-form-field>
+          <input matInput placeholder="Person Name" name="PNAME" id="PNAME" ngModel minlength="4">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Address" name="PADDRESS" id="PADDRESS" ngModel minlength="4">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-form-field>
+          <input matInput placeholder="Phone # 1" name="PPHONE_1" id="PPHONE_1" ngModel minlength="4">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Phone # 2" name="PPHONE_2" id="PPHONE_2" ngModel minlength="4">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-form-field>
+          <input matInput placeholder="Comments" name="PCOMMENTS" id="PCOMMENTS" ngModel minlength="4">
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <span class="mat-error">Pro version (* dynamic rows to add more contacts)</span>
+      </mat-expansion-panel>
+    </mat-accordion>
+      <mat-card-actions align="start">
+        <button type="submit" mat-raised-button [disabled]="!addDataForm.valid" color="primary">Next</button>
+      </mat-card-actions>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #showDummyPic>
+  <button mat-mini-fab disabled><img class="circle-avatar" aria-hidden src="assets/images/person.gif"
+      height="25"></button>
+</ng-template>

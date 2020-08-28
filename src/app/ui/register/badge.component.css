@@ -1,0 +1,17 @@
+@media print {
+  .noprint {
+    display: none;
+  }
+  div.page {
+    transform: rotate(90deg);
+    height: 550px; 
+    width: 800px; 
+    /* background-color: whitesmoke; */
+  }
+}
+
+/* @media print{@page {size: landscape}} */
+
+/* @media print{
+    @page {size: landscape}
+} */

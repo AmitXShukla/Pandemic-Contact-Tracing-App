@@ -1,0 +1,58 @@
+<mat-toolbar color="none">
+  <mat-toolbar-row>
+    <!-- <button mat-fab aria-label="Menu" color="primary" [matMenuTriggerFor]="rootMenu"> -->
+        <button mat-fab aria-label="Menu" color="primary" (click)="routeLogin()">
+      <!-- <mat-icon class="example-icon-link circle-link">rounded_corner</mat-icon> -->
+      <mat-icon class="example-icon-link circle-link">menu</mat-icon>
+      <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    </button>
+    <mat-icon class="example-icon">{{ imageUrl }}</mat-icon>
+    <span class="example-icon">{{ pageTitle }}</span>
+    <span class="example-spacer"></span>
+    <mat-icon class="example-icon-link circle-link" [matMenuTriggerFor]="helpMenu">help</mat-icon>
+    <mat-icon class="example-icon-link circle-link" [matMenuTriggerFor]="langMenu">language</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<!-- <mat-menu #rootMenu="matMenu">
+  <div class="example-ripple-container mat-elevation-z4">
+    <button mat-menu-item routerLink="/login">
+      <mat-icon class="circle-link example-icon-link">dashboard</mat-icon>Home
+    </button>
+  </div>
+
+  <button mat-menu-item routerLink="/aboutus">
+    <mat-icon class="circle-link example-icon-link">bookmark</mat-icon>About us
+  </button> -->
+  <!-- <button mat-menu-item routerLink="/features">
+    <mat-icon class="circle-link example-icon-link">web</mat-icon>Features
+  </button>
+  <button mat-menu-item routerLink="/settings">
+    <mat-icon class="circle-link example-icon-link">settings</mat-icon>Admin
+  </button>
+</mat-menu> -->
+<mat-menu #langMenu="matMenu">
+  <button mat-menu-item mat-elevation-z4>
+    English
+  </button>
+  <button mat-menu-item mat-elevation-z4>
+    français
+  </button>
+  <button mat-menu-item mat-elevation-z4>
+    普通话
+  </button> 
+  <button mat-menu-item mat-elevation-z4>
+    हिन्दी
+  </button>
+</mat-menu>
+<mat-menu #helpMenu="matMenu">
+  <div class="example-icon">
+    {{ helpType == "login" ? configData.login : ""}}
+    {{ helpType == "register" ? configData.register : ""}}
+    {{ helpType == "checkin" ? configData.checkin : ""}}
+    {{ helpType == "checkout" ? configData.checkout : ""}}
+    {{ helpType == "aboutus" ? configData.aboutus : ""}}
+    {{ helpType == "employee" ? configData.employee : ""}}
+    {{ helpType == "config" ? configData.config : ""}}
+  </div>
+</mat-menu>
