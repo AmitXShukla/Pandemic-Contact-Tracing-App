@@ -74,7 +74,20 @@ $ cd CTAPP
 $ ng serve
 
 ```
+<h2> Setup Google Firestore / Firebase Social Authentication</h2>
 
+```ts
+>> login to https://console.firebase.google.com
+create a new project
+choose Firestore as your database
+Click on Authentication
+>> Sign in Methods
+>> enable Email/Password
+>> enable Google
+>> enable FaceBook Auth
+  For Facebook authentication, you will need to create a new FaceBook App
+  and create APPID and App Secret from Facebook Graph API
+```
 <h2> Setup Google Firestore / Firebase Database & Role / Rules</h2>
 
 ```ts
