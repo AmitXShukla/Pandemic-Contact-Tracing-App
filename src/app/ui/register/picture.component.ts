@@ -10,13 +10,13 @@ import { interval } from 'rxjs';
 })
 
 export class PictureComponent implements OnInit, OnDestroy {
-  registerID;
+  registerID: any;
   showFileUpload: boolean = true;
   lat: number;
   lng: number;
-  data;
+  data: any;
   stopCondition = false;
-  private querySubscription;
+  private querySubscription: any;
 
   constructor(private _route: ActivatedRoute) { }
 
@@ -33,7 +33,7 @@ ngOnInit() {
 
 getLocations() {
   var positionOption = { enableHighAccuracy: false, maximumAge: Infinity, timeout: 60000 };
-  var gpsSunccuss = function (currentPosition) {
+  var gpsSunccuss = function (currentPosition: any) {
     //use gps position
   };
   var gpsFailed = function () {
