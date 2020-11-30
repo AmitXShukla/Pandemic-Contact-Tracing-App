@@ -14,22 +14,22 @@ import { map, defaultIfEmpty } from 'rxjs/operators';
 })
 
 export class CheckoutComponent implements OnInit {
-  currentDTTM;
+  currentDTTM: any;
   isCheckedOut: boolean = false;
   data$: Observable<any>;
   toggleField = "Guest";
   toggleSearch: boolean = false;
-  docData;
+  docData: any;
 
   constructor(private _route: ActivatedRoute, private _backendService: BackendService) {}
   ngOnInit(): void {
     this.currentDTTM = this._backendService.timestamp;
   }
 
-  onSubmit(formData){
+  onSubmit(formData: any){
       this.data$ = this._backendService.getDocs('REGISTER', formData)
   }
-  onCheckOut(formData) {
+  onCheckOut(formData: any) {
     this._backendService.updateCheckOutDoc('REGISTER', formData);
     this.isCheckedOut = true;
     // return this._backendService.updateCheckOutDoc('REGISTER', formData).then(res => {
@@ -39,7 +39,7 @@ export class CheckoutComponent implements OnInit {
     // }
     // ).catch(err => console.log(err));
   }
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "Guest";
   }
   

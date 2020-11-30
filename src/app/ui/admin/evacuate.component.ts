@@ -16,7 +16,7 @@ export class EvacuateComponent implements OnInit, OnDestroy {
 
     members: any[];
     dataSource = new MatTableDataSource<any>();
-    formData;
+    formData: any;
     data$: Observable<any>;
     toggleField: string;
     state: string = '';
@@ -24,7 +24,7 @@ export class EvacuateComponent implements OnInit, OnDestroy {
     error: boolean = false;
     errorMessage: String = "";
     dataLoading: boolean = false;
-    private querySubscription;
+    private querySubscription: any;
 
     //@ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -40,7 +40,7 @@ export class EvacuateComponent implements OnInit, OnDestroy {
         this.getData();
     }
 
-    toggle(filter?) {
+    toggle(filter?: any) {
         if (!filter) { filter = "searchMode" }
         else { filter = filter; }
         this.toggleField = filter;
@@ -70,11 +70,19 @@ export class EvacuateComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
     }
 
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
-    }
+    // applyFilter(filterValue: string) {
+    //     filterValue = filterValue.trim(); // Remove whitespace
+    //     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    //     this.dataSource.filter = filterValue;
+    // }
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+      }
     ngOnDestroy() {
         // this is not needed when observable is used, in this case, we are registering user on subscription
         if (this.querySubscription) {

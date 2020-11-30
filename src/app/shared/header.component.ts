@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   @Input() imageUrl: string;
   @Input() pageTitle: string;
   @Input() helpType: string;
-  configData;
+  configData: any;
 
   constructor(private ngZone: NgZone, private _backendService: BackendService,
     private _route: Router) { }

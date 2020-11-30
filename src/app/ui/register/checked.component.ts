@@ -10,7 +10,7 @@ export class CheckedComponent {
   toggleField = "showRegister";
   constructor() {}
   
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "showRegister";
   }
 }

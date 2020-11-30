@@ -41,10 +41,10 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  loginWithCode(formData) {
+  loginWithCode(formData: any) {
     this.dataLoading = true;
     this.OBData.data = formData;
-    return this._backendService.getDoc("LICENSE", this.OBData.data.authcode).subscribe((res) => {
+    return this._backendService.getDoc("LICENSE", this.OBData.data.authcode).subscribe((res: any) => {
       if (res !== undefined) {
         this.IBData.error = false;
         this.isAdmin = true;

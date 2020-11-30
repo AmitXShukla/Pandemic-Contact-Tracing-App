@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { BackendService } from  '../../services/backend.service';
 
 @Component({
@@ -8,11 +9,11 @@ import { BackendService } from  '../../services/backend.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  configData;
+  configData: Observable<any>;
   toggleField = "showRegister";
   constructor(private _backendService: BackendService) { }
   
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "showRegister";
   }
 

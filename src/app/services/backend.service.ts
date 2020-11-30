@@ -3,22 +3,23 @@ import { environment } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DBInBoundData, DBOutBoundData } from './datamodel';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+import auth from 'firebase';
 import 'firebase/firestore';
 import 'firebase/storage';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { firestore } from 'firebase/app';
+import firestore from 'firebase';
 import { Observable, of } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 import { Subject }    from 'rxjs';
+import * as firebase from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BackendService {
-  configData;
-  authState;
+  configData: any;
+  authState: any;
   private configDataSource = new Subject<any>();
   configData$ = this.configDataSource.asObservable();
   constructor(public afAuth: AngularFireAuth, private _afs: AngularFirestore, private _http: HttpClient, private _storage: AngularFireStorage) { }
@@ -26,12 +27,12 @@ export class BackendService {
   getConfigData() {
     return this._afs.collection(this.getCollUrls('CONFIG')).doc('config_doc').valueChanges();
   }
-  getConfig(configType) {
+  getConfig(configType: any) {
     configType == "social" ? this.configData = environment.social : "";
     configType == "helptext" ? this.configData = environment.helptext : "";
     return this.configData;
   }
-  OLDgetDoc(formData) {
+  OLDgetDoc(formData: any) {
     let fakeResponse_1: DBInBoundData = {
       error: true,
       statusCode: 0,
@@ -60,21 +61,21 @@ export class BackendService {
       }
     };
 
-    return Observable.create(observer => { setTimeout(() => { observer.next(fakeResponse_3) }, 2000) });
+    // return Observable.create(observer => { setTimeout(() => { observer.next(fakeResponse_3) }, 2000) });
   }
 
-  createUser(formData) {
+  createUser(formData: any) {
     return this.afAuth.createUserWithEmailAndPassword(formData.data.email, formData.data.password);
   }
 
-  loginEmail(formData) {
+  loginEmail(formData: any) {
     return this.afAuth.signInWithEmailAndPassword(formData.data.email, formData.data.password)
   }
 
-  loginSocialAuth(formType) {
-    return formType == "FB" ? this.afAuth.signInWithRedirect(new auth.FacebookAuthProvider()) : this.afAuth.signInWithRedirect(new auth.GoogleAuthProvider());
+  loginSocialAuth(formType: any) {
+    return formType == "FB" ? this.afAuth.signInWithRedirect(new auth.auth.FacebookAuthProvider()) : this.afAuth.signInWithRedirect(new auth.auth.GoogleAuthProvider());
   }
-  getCollUrls(coll) {
+  getCollUrls(coll: any) {
     let _coll = "VMS_USERS";
     if (coll == "USERS") { _coll = "VMS_USERS"; }
     if (coll == "EMPLOYEE") { _coll = "VMS_EMPLOYEE"; }
@@ -102,7 +103,7 @@ export class BackendService {
     }).then((res) => { return id; });
   }
 
-  getDocs(coll: string, formData?) {
+  getDocs(coll: string, formData?: any) {
     if (formData) {
       if (formData == 'evacuate') {
         return this._afs.collection(this.getCollUrls(coll), ref => ref.where('checkOutAt', '==', "")).valueChanges();
@@ -136,7 +137,7 @@ export class BackendService {
       updatedAt: timestamp
     }).then((res) => { return true });
   }
-  updateCheckOutDoc(coll: string, formData) {
+  updateCheckOutDoc(coll: string, formData: any) {
     const timestamp = this.timestamp
     if (formData.phone) {
       return this._afs.collection(this.getCollUrls(coll), ref => ref.where('phone', '==', formData.phone).where('checkOutAt', '==', '')).snapshotChanges().subscribe(items => {
@@ -162,12 +163,12 @@ export class BackendService {
     const timestamp = this.timestamp;
     const docRef = this._afs.collection(this.getCollUrls(coll)).doc(docId);
     return docRef.update({
-      files: firestore.FieldValue.arrayUnion(filePath),
+      files: firestore.firestore.FieldValue.arrayUnion(filePath),
       updatedAt: timestamp
     });
   }
 
-  getFileDownloadUrl(url) {
+  getFileDownloadUrl(url: any) {
     const ref = this._storage.ref(url);
     return ref.getDownloadURL();
   }

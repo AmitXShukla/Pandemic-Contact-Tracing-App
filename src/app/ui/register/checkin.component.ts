@@ -16,15 +16,15 @@ import { AngularFireStorage } from '@angular/fire/storage';
 })
 
 export class CheckinComponent implements OnInit {
-  currentDTTM;
-  id;
+  currentDTTM: any;
+  id: any;
   toggleField = "Guest";
   stateCtrl = new FormControl();
   filteredStates: Observable<any[]>;
   data$: Observable<any>;
   registerID = "";
   fileName: string;
-  docUrl = [];
+  docUrl: any = [];
   showFileUpload: boolean = false;
 
   states: any[];
@@ -46,11 +46,11 @@ export class CheckinComponent implements OnInit {
     this.getData();
   }
 
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "Guest";
   }
 
-  onSubmit(formData) {
+  onSubmit(formData: any) {
     return this._backendService.setDoc('REGISTER', formData).then(res => {
       if (res) {
         this.registerID = res;
@@ -66,7 +66,7 @@ export class CheckinComponent implements OnInit {
     return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  async getData(formData?) {
+  async getData(formData?: any) {
     let x;
     this.data$ = await this._backendService.getDocs('EMPLOYEE', formData);
     this.data$.subscribe(res => 

@@ -15,12 +15,12 @@ import { SignaturePad } from 'angular2-signaturepad/signature-pad';
   styleUrls: ['./badge.component.css']
 })
 export class BadgeComponent implements OnInit, AfterViewInit {
-  id;
+  id: any;
   toggleField = "showBadge";
   data$: Observable<any>;
-  configData;
+  configData: any;
   fileName: string;
-  docUrl;
+  docUrl: any;
   // canvas elements
   // a reference to the canvas element from our template
   //  @ViewChild('canvas') public canvas: ElementRef;
@@ -52,11 +52,11 @@ export class BadgeComponent implements OnInit, AfterViewInit {
     this.configData = this._backendService.getConfig("social");
   }
 
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "showBadge";
   }
 
-  async getData(id) {
+  async getData(id: any) {
     this.data$ = await this._backendService.getDoc('REGISTER', id);
     this.data$.subscribe(res => {
       if (res["files"]) {
@@ -64,7 +64,7 @@ export class BadgeComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  getDocUrl(docId) {
+  getDocUrl(docId: any) {
     return this.afStorage.ref(docId).getDownloadURL()
   }
   printBadge() {
@@ -147,23 +147,23 @@ export class BadgeComponent implements OnInit, AfterViewInit {
             )
         })
       )
-      .subscribe((res: [MouseEvent, MouseEvent]) => {
-        const rect = canvasEl.getBoundingClientRect();
+      // .subscribe((res: [MouseEvent, MouseEvent]) => {
+      //   const rect = canvasEl.getBoundingClientRect();
 
-        // previous and current position with the offset
-        const prevPos = {
-          x: res[0].clientX - rect.left,
-          y: res[0].clientY - rect.top
-        };
+      //   // previous and current position with the offset
+      //   const prevPos = {
+      //     x: res[0].clientX - rect.left,
+      //     y: res[0].clientY - rect.top
+      //   };
 
-        const currentPos = {
-          x: res[1].clientX - rect.left,
-          y: res[1].clientY - rect.top
-        };
+      //   const currentPos = {
+      //     x: res[1].clientX - rect.left,
+      //     y: res[1].clientY - rect.top
+      //   };
 
-        // this method we'll implement soon to do the actual drawing
-        this.drawOnCanvas(prevPos, currentPos);
-      });
+      //   // this method we'll implement soon to do the actual drawing
+      //   this.drawOnCanvas(prevPos, currentPos);
+      // });
   }
   private drawOnCanvas(
     prevPos: { x: number, y: number },

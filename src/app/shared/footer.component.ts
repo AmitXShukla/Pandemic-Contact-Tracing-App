@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from  '../services/backend.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +8,8 @@ import { BackendService } from  '../services/backend.service';
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent implements OnInit {
-  configData;
+  // configData: any;
+  configData: Observable<any>;
 
   constructor(private _backendService: BackendService) { }
 

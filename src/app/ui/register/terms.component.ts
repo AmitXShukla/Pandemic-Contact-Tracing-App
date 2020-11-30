@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class TermsComponent implements OnInit {
-  registerID;
+  registerID: any;
   showFileUpload: boolean = true;
   toggleField = "showBadge";
 
@@ -19,7 +19,7 @@ export class TermsComponent implements OnInit {
       this.registerID = params.get('id');
     });
   }
-  toggle(filter) {
+  toggle(filter: any) {
     this.toggleField = filter ? filter : "showBadge";
   } 
 }

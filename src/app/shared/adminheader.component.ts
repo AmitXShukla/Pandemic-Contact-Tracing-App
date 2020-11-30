@@ -11,7 +11,7 @@ export class AdminheaderComponent implements OnInit {
   @Input() imageUrl: string;
   @Input() pageTitle: string;
   @Input() helpType: string;
-  configData;
+  configData: any;
 
   constructor(private _backendService: BackendService) { }
 

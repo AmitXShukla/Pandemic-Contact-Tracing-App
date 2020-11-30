@@ -6,6 +6,13 @@
           "vmscloudsolution"
         ]
       }
+    },
+    "elish-erp": {
+      "hosting": {
+        "contact-tracing-app": [
+          "elish-erp"
+        ]
+      }
     }
   }
 }

@@ -5,7 +5,8 @@ import { environment } from '../../../environments/environment';
 import { BackendService } from '../../services/backend.service';
 import { DBInBoundData, DBOutBoundData } from '../../services/datamodel';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+// import { auth } from 'firebase/app';
+import auth from 'firebase';
 
 @Component({
   selector: 'app-signup',
@@ -39,7 +40,7 @@ export class SignupComponent implements OnInit {
     }; // outbound data
   }
 
-  onSubmit(formData) {
+  onSubmit(formData: any) {
     this.dataLoading = true;
     this.OBData.data = formData;
     return this._backendService.createUser(this.OBData).then(res => {

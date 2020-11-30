@@ -4,7 +4,8 @@ import { environment } from '../../../environments/environment';
 import { BackendService } from '../../services/backend.service';
 import { DBInBoundData, DBOutBoundData } from '../../services/datamodel';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { auth } from 'firebase/app';
+// import { auth } from 'firebase/app';
+import auth from 'firebase';
 
 @Component({
   selector: 'login',
@@ -42,7 +43,7 @@ export class LoginComponent implements OnInit {
     }; // outbound data
   }
 
-  loginEmail(formData) {
+  loginEmail(formData: any) {
     this.dataLoading = true;
     this.OBData.data = formData;
     return this._backendService.loginEmail(this.OBData).then(res => {
@@ -54,7 +55,7 @@ export class LoginComponent implements OnInit {
       this.IBData.statusMessage = error;
     }).then(r => this.dataLoading = false);
   }
-  loginSocial(formType) {
+  loginSocial(formType: any) {
     this.dataLoading = true;
     return this._backendService.loginSocialAuth(formType).then(res => {
       this.IBData.error = false;

@@ -23,11 +23,11 @@ export class FileUploadComponent {
 
     constructor(private _storage: AngularFireStorage, private _backendService: BackendService) { }
 
-    toggleHover(event: boolean) {
-        this.isHovering = event;
+    toggleHover(event:any) {
+        return this.isHovering == event;
     }
 
-    startUpload(event) {
+    startUpload(event: any) {
         const file = event.target.files[0];
         const filePath = this.fileUrl + '/' + event.target.files[0].name + '_' + new Date().getTime();
         const fileRef = this._storage.ref(filePath);
@@ -38,14 +38,14 @@ export class FileUploadComponent {
         task.snapshotChanges().pipe(
             finalize(() => this.downloadURL = fileRef.getDownloadURL())
         )
-            .subscribe((res) => {
+            .subscribe((res: any) => {
                 if (res.bytesTransferred == res.totalBytes) {
                     this._backendService.updateFileUpload(this.fileUrl, this.docId, res.ref["location"].path);
                 }
             });
     }
 
-    isActive(snapshot) {
+    isActive(snapshot: any) {
         return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes;
     }
 }

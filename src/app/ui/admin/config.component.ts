@@ -24,7 +24,7 @@ export class ConfigComponent implements OnInit {
     error: boolean = false;
     errorMessage: String = "";
     dataLoading: boolean = false;
-    private querySubscription;
+    private querySubscription: any;
     themes: Theme[] = [
       {value: 'primary', viewValue: 'Primary - blue'},
       // {value: 'accent', viewValue: 'Accent - pink'},
@@ -40,7 +40,7 @@ export class ConfigComponent implements OnInit {
   ngOnInit(): void {
     this.getDoc();
   }
-  setData(formData) {
+  setData(formData: any) {
     this.dataLoading = true;
     this._backendService.updateDoc("CONFIG", "config_doc", formData).then(res => {
       if (res) {

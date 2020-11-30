@@ -11,6 +11,8 @@
 /node_modules
 /e2e
 src/environments/*
+environment.prod.ts
+environment.ts
 .editorconfig
 package-lock.json
 

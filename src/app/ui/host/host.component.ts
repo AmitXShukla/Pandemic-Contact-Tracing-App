@@ -16,7 +16,7 @@ export class HostComponent implements OnInit, OnDestroy {
 
     members: any[];
     dataSource = new MatTableDataSource<any>();
-    myDocData;
+    myDocData: any;
     data$: Observable<any>;
     toggleField: string;
     state: string = '';
@@ -24,7 +24,7 @@ export class HostComponent implements OnInit, OnDestroy {
     error: boolean = false;
     errorMessage: String = "";
     dataLoading: boolean = false;
-    private querySubscription;
+    private querySubscription: any;
 
     //@ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -44,14 +44,14 @@ export class HostComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource(this.members);
     }
 
-    toggle(filter?) {
+    toggle(filter?: any) {
         if (!filter) { filter = "searchMode" }
         else { filter = filter; }
         this.toggleField = filter;
         this.dataLoading = false;
     }
 
-    getData(formData?) {
+    getData(formData?: any) {
         this.dataLoading = true;
         this.querySubscription = this._backendService.getDocs('EMPLOYEE', formData).subscribe((res) => {
             this.dataSource = new MatTableDataSource(res);
@@ -68,7 +68,7 @@ export class HostComponent implements OnInit, OnDestroy {
             });
     }
 
-    setData(formData) {
+    setData(formData: any) {
         this.dataLoading = true;
         this.querySubscription = this._backendService.setDoc('EMPLOYEE', formData).then(res => {
             if (res) {
@@ -88,7 +88,7 @@ export class HostComponent implements OnInit, OnDestroy {
         );
     }
 
-    updateData(formData) {
+    updateData(formData: any) {
         this.dataLoading = true;
         this.querySubscription = this._backendService.updateDoc('EMPLOYEE', formData._id, formData).then(res => {
             if (res) {
@@ -108,19 +108,19 @@ export class HostComponent implements OnInit, OnDestroy {
         );
     }
 
-    getDoc(docId) {
+    getDoc(docId: any) {
         this.docId = docId; // this is required to pass at file upload directive
         this.dataLoading = true;
         this.data$ = this._backendService.getDoc('EMPLOYEE', docId);
         this.toggle('editMode');
         this.dataLoading = false;
     }
-    getDocUrl(docUrl) {
+    getDocUrl(docUrl: any) {
         this.fileName = docUrl;
         this.docUrl = this._backendService.getFileDownloadUrl(docUrl);
     }
 
-    deleteDoc(docId) {
+    deleteDoc(docId: any) {
         if (confirm("Are you sure want to delete this record ?")) {
             this.dataLoading = true;
             this._backendService.deleteDoc('EMPLOYEE', docId).then(res => {
@@ -147,11 +147,19 @@ export class HostComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
     }
 
-    applyFilter(filterValue: string) {
-        filterValue = filterValue.trim(); // Remove whitespace
-        filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-        this.dataSource.filter = filterValue;
-    }
+    // applyFilter(filterValue: string) {
+    //     filterValue = filterValue.trim(); // Remove whitespace
+    //     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    //     this.dataSource.filter = filterValue;
+    // }
+    applyFilter(event: Event) {
+        const filterValue = (event.target as HTMLInputElement).value;
+        this.dataSource.filter = filterValue.trim().toLowerCase();
+    
+        if (this.dataSource.paginator) {
+          this.dataSource.paginator.firstPage();
+        }
+      }
     ngOnDestroy() {
         // this is not needed when observable is used, in this case, we are registering user on subscription
         if (this.querySubscription) {
