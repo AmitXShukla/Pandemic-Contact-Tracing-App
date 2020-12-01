@@ -40,7 +40,7 @@ export class FileUploadComponent {
         )
             .subscribe((res: any) => {
                 if (res.bytesTransferred == res.totalBytes) {
-                    this._backendService.updateFileUpload(this.fileUrl, this.docId, res.ref["location"].path);
+                    this._backendService.updateFileUpload(this.fileUrl, this.docId, res.ref["fullPath"]);
                 }
             });
     }
