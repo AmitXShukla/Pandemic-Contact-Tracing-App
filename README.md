@@ -16,7 +16,7 @@ An Electronic Visitor register App for storing Host & Guest Records, Picture Att
 The idea of contact tracing prompts some concerns regarding medical privacy, and public health officials take those concerns seriously.
 They are ethically and, in most states, legally bound to protect the information and use it only for public health purposes.
 
-<h2><a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lHnfxOOzZ_hTnPF8Hh3eKDo">Video Tutorials!</a></h2>
+<h2><a href="https://www.youtube.com/watch?v=MkV413X2Kmw&list=PLp0TENYyY8lHL-G7jGbhpJBhVb2UdTOhQ&index=1&t=698s">Video Tutorials!</a></h2>
 <h2>This repository is updated to Angular 11</h2>
 
 please don't forget to copy/update tsconfig.json as well.
