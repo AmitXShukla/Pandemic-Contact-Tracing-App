@@ -216,7 +216,7 @@
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <mat-form-field class="example-full-width">
-                  <textarea matInput placeholder="Terms & Conditions" name="terms" #terms="ngModel" #terms [ngModel]="(data$ | async)?.terms" minlength="10">
+                  <textarea matInput placeholder="Terms & Conditions" name="terms" #terms="ngModel" [ngModel]="(data$ | async)?.terms" minlength="10">
                   </textarea>
                 </mat-form-field>
                 <br><br>

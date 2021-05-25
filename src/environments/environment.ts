@@ -5,13 +5,13 @@ export const environment = {
   adminKey: 'guest',
   firebase: {
     apiKey: "",
-    authDomain: "",
-    databaseURL: "",
-    projectId: "",
-    storageBucket: "",
+    authDomain: "vmscloudsolution.firebaseapp.com",
+    databaseURL: "https://vmscloudsolution.firebaseio.com",
+    projectId: "vmscloudsolution",
+    storageBucket: "vmscloudsolution.appspot.com",
     messagingSenderId: "",
     appId: "",
-    measurementId: ""
+    measurementId: "G-"
   },
   social: {
     fblink: 'https://www.facebook.com/elishconsulting',

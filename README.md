@@ -17,12 +17,13 @@ The idea of contact tracing prompts some concerns regarding medical privacy, and
 They are ethically and, in most states, legally bound to protect the information and use it only for public health purposes.
 
 <h2><a href="https://www.youtube.com/playlist?list=PLp0TENYyY8lHnfxOOzZ_hTnPF8Hh3eKDo">Video Tutorials!</a></h2>
-<h2>This repository is updated to Angular 11</h2>
+<h2>This repository is updated to Angular 12, please download latest Angular and Typescript version.
+Also, please use NODEJS 14 version.</h2>
 
 please don't forget to copy/update tsconfig.json as well.
 
 <h2>Tools: </h2>
-<b>front-end:</b> Angular 11<br/>
+<b>front-end:</b> Angular 12<br/>
 <b>back-end:</b> Google Firestore / Firebase<br/>
 Pro Version: AI, Machine Learning Algorithm supported Advance features<br/>
 <h3><i>send an email to info@elishconsulting.com for Pro version enquiries.</i></h3>
